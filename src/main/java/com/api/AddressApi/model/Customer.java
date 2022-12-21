@@ -15,17 +15,8 @@ public class Customer {
     private String documento;
     private TipoDocumento tipoDocumento;
 
-    private List<Address> addresses;
-
     public Customer(){
 
-    }
-
-    public Customer(int idCustomer, String email, String documento, TipoDocumento tipoDocumento) {
-        this.idCustomer = idCustomer;
-        this.email = email;
-        this.documento = documento;
-        this.tipoDocumento = tipoDocumento;
     }
 
     public int getIdCustomer() {
