@@ -11,9 +11,17 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCustomer;
+
+    @Column(nullable = false, unique = true, length = 20)
     private String email;
+    @Column(nullable = false, unique = true, length = 14)
     private String documento;
+    @Column(nullable = false, length = 2)
     private TipoDocumento tipoDocumento;
+
+    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval= true)
+    @JoinColumn(name="id_customer")
+    private List<Address> addresses;
 
     public Customer(){
 
@@ -49,5 +57,13 @@ public class Customer {
 
     public void setTipoDocumento(TipoDocumento tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 }

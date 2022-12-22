@@ -8,15 +8,18 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idAddress;
+    @Column(nullable = false, length = 20)
     private String rua;
+    @Column(nullable = false)
     private int numero;
+    @Column(nullable = false, length = 20)
     private String bairro;
+    @Column(nullable = false, length = 10)
     private String cidade;
+    @Column(nullable = false, length = 8)
     private String cep;
+    @Column(nullable = false, length = 15)
     private String estado;
-    @ManyToOne
-    @JoinColumn(name = "idCustomer")
-    private Customer idCustomer;
 
     public Address(){
     }
@@ -77,11 +80,4 @@ public class Address {
         this.estado = estado;
     }
 
-    public Customer getIdCustomer() {
-        return idCustomer;
-    }
-
-    public void setIdCustomer(Customer idCustomer) {
-        this.idCustomer = idCustomer;
-    }
 }
