@@ -4,7 +4,10 @@ import com.api.AddressApi.enuns.TipoDocumento;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
+import java.io.Serializable;
 
 public class CustomerDto {
 
@@ -17,8 +20,8 @@ public class CustomerDto {
     @Size(max = 14)
     private String documento;
 
-    @NotBlank
-    @Size(max = 2)
+
+    @NotNull
     private TipoDocumento tipoDocumento;
 
     public String getEmail() {

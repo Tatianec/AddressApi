@@ -3,21 +3,24 @@ package com.api.AddressApi.model;
 import com.api.AddressApi.enuns.TipoDocumento;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_customer")
 public class Customer {
+    private  static final  long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCustomer;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID idCustomer;
 
     @Column(nullable = false, unique = true, length = 20)
     private String email;
     @Column(nullable = false, unique = true, length = 14)
     private String documento;
-    @Column(nullable = false, length = 2)
-    private TipoDocumento tipoDocumento;
+    @Column
+    private Integer tipoDocumento;
 
     @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval= true)
     @JoinColumn(name="id_customer")
@@ -27,11 +30,12 @@ public class Customer {
 
     }
 
-    public int getIdCustomer() {
+
+    public UUID getIdCustomer() {
         return idCustomer;
     }
 
-    public void setIdCustomer(int idCustomer) {
+    public void setIdCustomer(UUID idCustomer) {
         this.idCustomer = idCustomer;
     }
 
@@ -52,11 +56,13 @@ public class Customer {
     }
 
     public TipoDocumento getTipoDocumento() {
-        return tipoDocumento;
+        return TipoDocumento.valueOf(tipoDocumento);
     }
 
     public void setTipoDocumento(TipoDocumento tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
+        if(tipoDocumento != null) {
+            this.tipoDocumento = tipoDocumento.getCode();
+        }
     }
 
     public List<Address> getAddresses() {
