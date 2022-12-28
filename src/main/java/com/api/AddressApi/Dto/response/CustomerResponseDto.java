@@ -1,6 +1,7 @@
 package com.api.AddressApi.Dto.response;
 
 import com.api.AddressApi.model.Address;
+import jakarta.persistence.Version;
 import lombok.*;
 
 import java.util.List;
@@ -16,5 +17,8 @@ public class CustomerResponseDto {
     private String name;
     private String email;
     private List<Address> addresses;
+
+    @Version
+    private int version;
 
 }

@@ -36,4 +36,7 @@ public class Address {
 
     @Column(name = "address_principal")
     private boolean addressPrincipal;
+
+    @Version
+    private int version;
 }

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerGroupSequence implements DefaultGroupSequenceProvider<CustomerDto> {
-
         @Override
         public List<Class<?>>getValidationGroups(CustomerDto customerDto) {
             List<Class<?>> groups = new ArrayList<>();
@@ -17,12 +16,10 @@ public class CustomerGroupSequence implements DefaultGroupSequenceProvider<Custo
                 groups.add(customerDto.getTypeDocument().getGroup());
             }
             return groups;
-
         }
 
         protected boolean isPersonSelected(CustomerDto customerRequestDto) {
             return customerRequestDto != null && customerRequestDto.getTypeDocument() != null;
         }
-
     }
 

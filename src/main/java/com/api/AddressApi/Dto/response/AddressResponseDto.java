@@ -1,5 +1,6 @@
 package com.api.AddressApi.Dto.response;
 
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,7 @@ public class AddressResponseDto {
     private String cep;
     private String uf;
     private boolean mainAddress;
+
+    @Version
+    private int version;
 }

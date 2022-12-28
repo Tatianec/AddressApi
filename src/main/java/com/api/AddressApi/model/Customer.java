@@ -38,4 +38,6 @@ public class Customer {
     @Column
     private List<Address> addresses = new ArrayList<>();
 
+    @Version
+    private int version;
 }
