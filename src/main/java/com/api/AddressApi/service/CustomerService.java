@@ -1,38 +1,49 @@
 package com.api.AddressApi.service;
 
+import com.api.AddressApi.Dto.CustomerDto;
+import com.api.AddressApi.exception.ResourceNotFoundException;
 import com.api.AddressApi.model.Customer;
 import com.api.AddressApi.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 @Service
+@AllArgsConstructor
 public class CustomerService {
 
     final CustomerRepository repository;
+    private final ModelMapper mapper;
 
-    public CustomerService(CustomerRepository repository) {
-        this.repository = repository;
+    @Transactional
+    public Customer save(CustomerDto customerDto) {
+        return repository.save(mapper.map(customerDto, Customer.class));
+    }
+
+    public Page<Customer> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
+    public Customer findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found!"));
     }
 
     @Transactional
-    public Customer save(Customer customerModel) {
-        return repository.save(customerModel);
-    }
-
-    public List<Customer> findAll() {
-        return repository.findAll();
-    }
-
-    public Optional<Customer> findById(UUID idCustomer) {
-        return repository.findById(idCustomer);
+    public Customer update(CustomerDto customerDto, Long id){
+        Customer customer = findById(id);
+        mapper.map(customerDto, customer);
+        repository.save(customer);
+        return customer;
     }
 
     @Transactional
-    public void delete(Customer customer) {
+    public void delete(Long id) {
+        Customer customer = mapper.map(this.findById(id), Customer.class);
         repository.delete(customer);
     }
+
 }
