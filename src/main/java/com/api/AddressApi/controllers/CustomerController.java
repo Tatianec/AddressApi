@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -38,14 +39,23 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(customerService.findAll(pageable));
     }
 
+    @GetMapping("/name")
+    @ResponseStatus(HttpStatus.OK)
+    @Cacheable(value = "findByName")
+    public ResponseEntity<Page<Customer>> findByName(@PageableDefault(
+            page = 0, size = 5, sort = "name", direction = Sort.Direction.ASC) Pageable pageable){
+        return ResponseEntity.status(HttpStatus.OK).body(customerService.findAll(pageable));
+    }
+
     @GetMapping("/{idCustomer}")
     @ResponseStatus(HttpStatus.OK)
     public CustomerResponseDto findById(@PathVariable Long idCustomer){
         return mapper.map(customerService.findById(idCustomer), CustomerResponseDto.class);
     }
 
-    @GetMapping("/v2/{idCustomer}")
+    @GetMapping("/version2/{idCustomer}")
     @ResponseStatus(HttpStatus.OK)
+    @Cacheable(value = "costumer")
     public CustomerResponseContr2Dtro findByIdVersion2(@PathVariable Long idCustomer){
         return mapper.map(customerService.findById(idCustomer), CustomerResponseContr2Dtro.class);
     }
