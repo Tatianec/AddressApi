@@ -1,6 +1,7 @@
 package com.api.AddressApi.controllers;
 
 import com.api.AddressApi.Dto.CustomerDto;
+import com.api.AddressApi.Dto.response.CustomerResponseContr2Dtro;
 import com.api.AddressApi.Dto.response.CustomerResponseDto;
 import com.api.AddressApi.model.Customer;
 import com.api.AddressApi.service.CustomerService;
@@ -39,19 +40,25 @@ public class CustomerController {
 
     @GetMapping("/{idCustomer}")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerResponseDto findById(@PathVariable(value = "idCustomer") Long id){
-        return mapper.map(customerService.findById(id), CustomerResponseDto.class);
+    public CustomerResponseDto findById(@PathVariable Long idCustomer){
+        return mapper.map(customerService.findById(idCustomer), CustomerResponseDto.class);
+    }
+
+    @GetMapping("/v2/{idCustomer}")
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerResponseContr2Dtro findByIdVersion2(@PathVariable Long idCustomer){
+        return mapper.map(customerService.findById(idCustomer), CustomerResponseContr2Dtro.class);
     }
 
     @DeleteMapping("/{idCustomer}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @CacheEvict(value = "deleteCustomer")
-    public void deleteCustomerById(@PathVariable(value = "idCustomer") Long id){
-        customerService.delete(id);
+    public void deleteCustomerById(@PathVariable Long idCustomer){
+        customerService.delete(idCustomer);
     }
 
     @PutMapping("/{idCustomer}")
-    public CustomerResponseDto updateCustomer(@PathVariable(value = "idCustomer") Long id, @RequestBody @Valid CustomerDto customerDto){
-        return mapper.map(customerService.update(customerDto, id), CustomerResponseDto.class);
+    public CustomerResponseDto updateCustomer(@PathVariable Long idCustomer, @RequestBody @Valid CustomerDto customerDto){
+        return mapper.map(customerService.update(customerDto, idCustomer), CustomerResponseDto.class);
     }
 }

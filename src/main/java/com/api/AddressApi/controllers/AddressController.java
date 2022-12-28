@@ -3,7 +3,6 @@ package com.api.AddressApi.controllers;
 import com.api.AddressApi.Dto.AddressDto;
 import com.api.AddressApi.Dto.AddressUpdateDto;
 import com.api.AddressApi.Dto.response.AddressResponseDto;
-import com.api.AddressApi.Dto.response.CustomerResponseDto;
 import com.api.AddressApi.model.Address;
 import com.api.AddressApi.service.AddressService;
 import jakarta.validation.Valid;
@@ -22,10 +21,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/addresses")
 @AllArgsConstructor
 public class AddressController {
-
     private final AddressService addressService;
     private final ModelMapper mapper;
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @CacheEvict(value = "addressSave")
@@ -36,29 +33,29 @@ public class AddressController {
     @PutMapping("/{idAddress}")
     @ResponseStatus(HttpStatus.OK)
     @CacheEvict(value = "addressUpdate")
-    public AddressResponseDto update(@PathVariable int id, @RequestBody @Valid AddressUpdateDto addressUpdateDto){
-        return mapper.map(addressService.update(addressUpdateDto, id), AddressResponseDto.class);
+    public AddressResponseDto update(@PathVariable int idAddress, @RequestBody @Valid AddressUpdateDto addressUpdateDto){
+        return mapper.map(addressService.update(addressUpdateDto, idAddress), AddressResponseDto.class);
     }
 
     @PatchMapping("/address-principal/{idAddress}")
     @ResponseStatus(HttpStatus.OK)
     @CacheEvict(value = "addressPrincipalUpdate")
-    public AddressResponseDto updateAddressPrincipal(@PathVariable int id){
-        addressService.updatePrincipalAddress(id);
-        return mapper.map(addressService.findById(id), AddressResponseDto.class);
+    public AddressResponseDto updateAddressPrincipal(@PathVariable int idAddress){
+        addressService.updatePrincipalAddress(idAddress);
+        return mapper.map(addressService.findById(idAddress), AddressResponseDto.class);
     }
 
     @DeleteMapping("/{idAddress}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @CacheEvict(value = "addressDelete")
-    public void delete(@PathVariable int id){
-        addressService.delete(id);
+    public void delete(@PathVariable int idAddress){
+        addressService.delete(idAddress);
     }
 
     @GetMapping("/{idAddress}")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerResponseDto findById(@PathVariable(value = "idAddress") int id){
-        return mapper.map(addressService.findById(id), CustomerResponseDto.class);
+    public AddressResponseDto findById(@PathVariable int idAddress){
+        return mapper.map(addressService.findById(idAddress), AddressResponseDto.class);
     }
 
     @GetMapping

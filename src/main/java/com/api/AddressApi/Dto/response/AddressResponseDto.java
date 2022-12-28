@@ -16,7 +16,7 @@ public class AddressResponseDto {
     private String localidade;
     private String cep;
     private String uf;
-    private boolean mainAddress;
+    private boolean addressPrincipal;
 
     @Version
     private int version;
