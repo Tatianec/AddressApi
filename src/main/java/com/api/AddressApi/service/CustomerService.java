@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class CustomerService {
-    final CustomerRepository repository;
+    private final CustomerRepository repository;
     private final ModelMapper mapper;
     @Transactional
     public Customer save(CustomerDto customerDto) {
@@ -39,5 +39,10 @@ public class CustomerService {
     public Customer findById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found!"));
+    }
+
+    public Page<Customer> findByName(String name, Pageable pageable){
+        return repository.findByName(name, pageable);
+
     }
 }

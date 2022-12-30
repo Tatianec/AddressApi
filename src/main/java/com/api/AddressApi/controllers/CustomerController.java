@@ -3,7 +3,6 @@ package com.api.AddressApi.controllers;
 import com.api.AddressApi.Dto.CustomerDto;
 import com.api.AddressApi.Dto.response.CustomerResponseContr2Dtro;
 import com.api.AddressApi.Dto.response.CustomerResponseDto;
-import com.api.AddressApi.model.Customer;
 import com.api.AddressApi.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -15,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -34,17 +32,10 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Customer>> getAllCustomers(@PageableDefault(
-            page = 0, size = 10, sort = "idCustomer", direction = Sort.Direction.ASC) Pageable pageable){
-        return ResponseEntity.status(HttpStatus.OK).body(customerService.findAll(pageable));
-    }
-
-    @GetMapping("/name")
     @ResponseStatus(HttpStatus.OK)
-    @Cacheable(value = "findByName")
-    public ResponseEntity<Page<Customer>> findByName(@PageableDefault(
-            page = 0, size = 5, sort = "name", direction = Sort.Direction.ASC) Pageable pageable){
-        return ResponseEntity.status(HttpStatus.OK).body(customerService.findAll(pageable));
+    public Page<CustomerResponseDto> findAll(@PageableDefault(
+            page = 0, size = 10, sort = "idCustomer", direction = Sort.Direction.ASC) Pageable pageable){
+        return customerService.findAll(pageable).map(n -> (mapper.map(n, CustomerResponseDto.class)));
     }
 
     @GetMapping("/{idCustomer}")
