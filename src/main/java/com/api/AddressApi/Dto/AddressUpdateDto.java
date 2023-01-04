@@ -12,8 +12,8 @@ public class AddressUpdateDto {
 
     private int numero;
 
-    @NotBlank(message = "zipCode is a required field!")
+    @NotBlank(message = "Cep precisa ser preenchido!!")
     @Length(min = 8, max = 8)
-    @Pattern(regexp = "^[^\\D]{8}$", message = "Enter only numbers!")
+    @Pattern(regexp = "^[^\\D]{8}$", message = "Informe apenas números!")
     private String cep;
 }

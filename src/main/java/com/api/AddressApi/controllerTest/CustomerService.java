@@ -1,4 +1,4 @@
-package com.api.AddressApi.service;
+package com.api.AddressApi.controllerTest;
 
 import com.api.AddressApi.Dto.CustomerDto;
 import com.api.AddressApi.exception.ResourceNotFoundException;
@@ -41,8 +41,4 @@ public class CustomerService {
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found!"));
     }
 
-    public Page<Customer> findByName(String name, Pageable pageable){
-        return repository.findByName(name, pageable);
-
-    }
 }

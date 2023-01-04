@@ -22,5 +22,4 @@ public class AddressDto {
     private String cep;
 
     private String uf;
-
 }

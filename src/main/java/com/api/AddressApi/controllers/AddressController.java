@@ -4,7 +4,7 @@ import com.api.AddressApi.Dto.AddressDto;
 import com.api.AddressApi.Dto.AddressUpdateDto;
 import com.api.AddressApi.Dto.response.AddressResponseDto;
 import com.api.AddressApi.model.Address;
-import com.api.AddressApi.service.AddressService;
+import com.api.AddressApi.controllerTest.AddressService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -63,5 +63,4 @@ public class AddressController {
             page = 0, size = 10, sort = "idAddress", direction = Sort.Direction.ASC) Pageable pageable){
         return ResponseEntity.status(HttpStatus.OK).body(addressService.findAll(pageable));
     }
-
 }

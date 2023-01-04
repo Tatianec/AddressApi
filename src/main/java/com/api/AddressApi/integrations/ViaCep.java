@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.InvalidObjectException;
 
 @Component
 public class ViaCep {
@@ -36,21 +35,19 @@ public class ViaCep {
                 in.close();
                 closeableHttpClient.close();
                 var address = new Gson().fromJson(responseString.toString(), AddressDto.class);
-                if (address.getUf() == null) {
-                    throw new IllegalArgumentException("Estado inválido!");
-                }
+
                 return address;
             }else {
                 closeableHttpClient.close();
-                throw new InvalidObjectException("Erro!!!");
+                throw new RuntimeException("Erro!!!");
             }
         } catch (IOException ex) {
-            throw new IllegalArgumentException("Erro!!!");
+            throw new RuntimeException("Erro!!!");
         }
     }
 
     public String formatarUrlCep(String cep){
-        return String.format(url_via_cep + url_via_cep + cep + "/json");
+        return String.format(url_via_cep + cep + "/json");
     }
 }
 

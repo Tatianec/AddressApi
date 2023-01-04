@@ -37,5 +37,4 @@ public class CustomerDto implements Serializable {
 
     @NotNull
     private TypeDocument typeDocument;
-
 }
