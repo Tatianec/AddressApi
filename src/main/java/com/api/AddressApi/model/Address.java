@@ -2,12 +2,14 @@ package com.api.AddressApi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tb_address")
 public class Address {
     private  static final  long serialVersionUID = 1L;

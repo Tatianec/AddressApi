@@ -3,17 +3,16 @@ package com.api.AddressApi.controller.unitaryTests;
 import com.api.AddressApi.Dto.CustomerDto;
 import com.api.AddressApi.Dto.response.CustomerResponseContr2Dtro;
 import com.api.AddressApi.Dto.response.CustomerResponseDto;
+import com.api.AddressApi.service.CustomerService;
 import com.api.AddressApi.controllers.CustomerController;
 import com.api.AddressApi.enuns.TypeDocument;
 import com.api.AddressApi.model.Customer;
-import com.api.AddressApi.controllerTest.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.*;
 
 import java.util.Arrays;
@@ -23,28 +22,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest
 class CustomerControllerTest {
     private CustomerService customerService;
     private CustomerController customerController;
-    private ModelMapper mapper;
+    private ModelMapper modelMapper;
     @BeforeEach
     public void setup() {
         customerService = mock(CustomerService.class);
-        mapper = new ModelMapper();
-        customerController = new CustomerController(customerService, mapper);
+        modelMapper = new ModelMapper();
+        customerController = new CustomerController(customerService, modelMapper);
     }
     @Test
     @DisplayName("Deve salvar com sucesso")
-    void saveSuccessfulTest() {
+    void saveSuccessfullTest() {
         CustomerDto customerDto = CustomerDto.builder()
                 .name("Tatiane Correa")
-                    .email("tatiane@corre.com")
-                        .document("03238461060")
-                            .typeDocument(TypeDocument.PF)
+                .email("tatiane@corre.com")
+                .document("03238461060")
+                .typeDocument(TypeDocument.PF)
                 .build();
 
-        Customer customer = mapper.map(customerDto, Customer.class);
+        Customer customer = modelMapper.map(customerDto, Customer.class);
         when(customerService.save(customerDto))
                 .thenReturn(customer);
 
@@ -59,14 +57,14 @@ class CustomerControllerTest {
 
     @Test
     @DisplayName("Deve receber um id do customer e retornar um response")
-    void FindByIdTest() {
+    void findByIdTest() {
         Long id = 1L;
         Customer customer = Customer.builder()
                 .idCustomer(id)
-                    .name("Tatiane")
-                        .document("03238461060")
-                            .typeDocument(TypeDocument.PF)
-                                .email("tatiane@corre.com")
+                .name("Tatiane")
+                .document("03238461060")
+                .typeDocument(TypeDocument.PF)
+                .email("tatiane@corre.com")
                 .build();
         when(customerService.findById(id))
                 .thenReturn(customer);
@@ -105,14 +103,14 @@ class CustomerControllerTest {
 
     @Test
     @DisplayName("Deve retornar sucesso ao deletar")
-    void deleteByIdTeste() {
+    void deleteByIdTest() {
         Long id = 1L;
         customerController.deleteCustomerById(id);
         verify(customerService).delete(id);
     }
     @Test
     @DisplayName("Deve atualizar um cliente com sucesso")
-    void testUpdate() {
+    void updateTest() {
         Long id = 1L;
 
         CustomerDto customerDto = CustomerDto.builder()
@@ -122,17 +120,17 @@ class CustomerControllerTest {
                 .email("tatiane@teste.com")
                 .build();
 
-        Customer customer = mapper.map(customerDto, Customer.class);
+        Customer customer = modelMapper.map(customerDto, Customer.class);
         when(customerService.update(customerDto, id))
                 .thenReturn(customer);
-        CustomerResponseDto result = customerController.updateCustomer(id, customerDto);
+        CustomerResponseDto customerResponseDto = customerController.updateCustomer(id, customerDto);
 
-        assertEquals(customer.getIdCustomer(), result.getIdCustomer());
+        assertEquals(customer.getIdCustomer(), customerResponseDto.getIdCustomer());
     }
 
     @Test
     @DisplayName("Deve receber um id do customer e retornar um response")
-    void FindByIdVersion2Test() {
+    void findByIdVersion2Test() {
         Long id = 1L;
         Customer customer = Customer.builder()
                 .idCustomer(id)

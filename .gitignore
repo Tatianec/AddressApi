@@ -1,4 +1,7 @@
 HELP.md
+mvnw.cmd
+mvnw
+Help.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -31,7 +34,7 @@ build/
 
 ### VS Code ###
 .vscode/
-mvnw.cmd
-mvnw
-Help.md
+
+
+
 

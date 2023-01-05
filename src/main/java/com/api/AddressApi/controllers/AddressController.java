@@ -3,8 +3,7 @@ package com.api.AddressApi.controllers;
 import com.api.AddressApi.Dto.AddressDto;
 import com.api.AddressApi.Dto.AddressUpdateDto;
 import com.api.AddressApi.Dto.response.AddressResponseDto;
-import com.api.AddressApi.model.Address;
-import com.api.AddressApi.controllerTest.AddressService;
+import com.api.AddressApi.service.AddressService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -59,8 +57,9 @@ public class AddressController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Address>> getAllAddress(@PageableDefault(
+    @ResponseStatus(HttpStatus.OK)
+    public Page<AddressResponseDto> getAllAddress(@PageableDefault(
             page = 0, size = 10, sort = "idAddress", direction = Sort.Direction.ASC) Pageable pageable){
-        return ResponseEntity.status(HttpStatus.OK).body(addressService.findAll(pageable));
+        return addressService.findAll(pageable).map(n -> (mapper.map(n, AddressResponseDto.class)));
     }
 }

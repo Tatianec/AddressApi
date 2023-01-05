@@ -3,7 +3,7 @@ package com.api.AddressApi.controllers;
 import com.api.AddressApi.Dto.CustomerDto;
 import com.api.AddressApi.Dto.response.CustomerResponseContr2Dtro;
 import com.api.AddressApi.Dto.response.CustomerResponseDto;
-import com.api.AddressApi.controllerTest.CustomerService;
+import com.api.AddressApi.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

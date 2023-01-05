@@ -2,14 +2,15 @@ package com.api.AddressApi.Dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
+@Builder
 public class AddressUpdateDto {
-
     private int numero;
 
     @NotBlank(message = "Cep precisa ser preenchido!!")

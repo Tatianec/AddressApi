@@ -1,11 +1,13 @@
 package com.api.AddressApi.Dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
+@Builder
 public class AddressDto {
 
     private Long customer;

@@ -1,4 +1,4 @@
-package com.api.AddressApi.controllerTest;
+package com.api.AddressApi.service;
 
 import com.api.AddressApi.Dto.CustomerDto;
 import com.api.AddressApi.exception.ResourceNotFoundException;
