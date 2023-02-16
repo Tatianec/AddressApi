@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 @Service
 @AllArgsConstructor
 public class AddressService {
@@ -42,13 +41,13 @@ public class AddressService {
     @Transactional
     public Address update(AddressUpdateDto addressUpdateDto, int id) {
         Address address = this.findById(id);
-        AddressDto addressDtoAux = viaCep.findCep(addressUpdateDto.getCep());
-        address.setBairro(addressDtoAux.getBairro());
+        AddressDto addressDto = viaCep.findCep(addressUpdateDto.getCep());
+        address.setBairro(addressDto.getBairro());
         address.setCep(addressUpdateDto.getCep());
-        address.setLocalidade(addressDtoAux.getLocalidade());
-        address.setUf(addressDtoAux.getUf());
+        address.setLocalidade(addressDto.getLocalidade());
+        address.setUf(addressDto.getUf());
         address.setNumero(addressUpdateDto.getNumero());
-        address.setLogradouro(addressDtoAux.getLogradouro());
+        address.setLogradouro(addressDto.getLogradouro());
 
         repository.save(address);
         return address;
@@ -88,6 +87,9 @@ public class AddressService {
     private void setAddressPrincipalCustomer(Address address){
         if (address.getCustomer().getAddresses().isEmpty()) {
             address.setAddressPrincipal(true);
+        }
+        else{
+            throw new AddressException("Customer já possui um endereço principal cadastrado!");
         }
     }
 

@@ -15,9 +15,7 @@ import java.io.InputStreamReader;
 
 @Component
 public class ViaCep {
-
     private final String url_via_cep = "https://viacep.com.br/ws/";
-
     public AddressDto findCep(String cep) {
         try {
             CloseableHttpClient closeableHttpClient = HttpClients.createDefault();

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableCaching
 public class AddressApiApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(AddressApiApplication.class, args);
 	}

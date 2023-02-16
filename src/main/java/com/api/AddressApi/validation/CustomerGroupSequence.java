@@ -7,19 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerGroupSequence implements DefaultGroupSequenceProvider<CustomerDto> {
-        @Override
-        public List<Class<?>>getValidationGroups(CustomerDto customerDto) {
-            List<Class<?>> groups = new ArrayList<>();
-            groups.add(CustomerDto.class);
+    @Override
+    public List<Class<?>>getValidationGroups(CustomerDto customerDto) {
+        List<Class<?>> groups = new ArrayList<>();
+        groups.add(CustomerDto.class);
 
-            if(isPersonSelected(customerDto)) {
-                groups.add(customerDto.getTypeDocument().getGroup());
-            }
-            return groups;
+        if(isPersonSelected(customerDto)) {
+            groups.add(customerDto.getTypeDocument().getGroup());
         }
-
-        protected boolean isPersonSelected(CustomerDto customerRequestDto) {
-            return customerRequestDto != null && customerRequestDto.getTypeDocument() != null;
-        }
+        return groups;
     }
+
+    protected boolean isPersonSelected(CustomerDto customerRequestDto) {
+        return customerRequestDto != null && customerRequestDto.getTypeDocument() != null;
+    }
+}
 

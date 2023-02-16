@@ -1,4 +1,4 @@
-package com.api.AddressApi.controller.unitaryTests;
+package com.api.AddressApi.controllers.unitaryTests;
 
 import com.api.AddressApi.Dto.AddressDto;
 import com.api.AddressApi.Dto.AddressUpdateDto;
@@ -53,7 +53,7 @@ public class AddressControllerTest {
 
     @Test
     @DisplayName("Deve salvar com sucesso")
-    void saveSuccessfullTest() {
+    void saveSuccessfullyTest() {
         AddressDto addressDto = AddressDto.builder()
                 .customer(1L)
                 .uf("São Paulo")
@@ -103,7 +103,7 @@ public class AddressControllerTest {
     }
 
     @Test
-    @DisplayName("Deve retornar um página de endereço com sucesso")
+    @DisplayName("Deve retornar um página de endereços com sucesso")
     void findAllTest() {
         Pageable pageable = PageRequest.of(0, 5, Sort.by("idAddress").ascending());
         List<Address> addresses = Arrays.asList(
@@ -159,7 +159,7 @@ public class AddressControllerTest {
 
     @Test
     @DisplayName("Deve atualizar um endereço")
-    void updatePrincipalAddressTest() {
+    void updatePrincipalAddressTest(){
         doNothing().when(addressService).updatePrincipalAddress(1);
 
         when(addressService.findById(1)).thenReturn(createAddress());

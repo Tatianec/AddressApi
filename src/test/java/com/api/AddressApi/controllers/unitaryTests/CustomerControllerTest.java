@@ -1,4 +1,4 @@
-package com.api.AddressApi.controller.unitaryTests;
+package com.api.AddressApi.controllers.unitaryTests;
 
 import com.api.AddressApi.Dto.CustomerDto;
 import com.api.AddressApi.Dto.response.CustomerResponseContr2Dtro;
@@ -35,12 +35,7 @@ class CustomerControllerTest {
     @Test
     @DisplayName("Deve salvar com sucesso")
     void saveSuccessfullTest() {
-        CustomerDto customerDto = CustomerDto.builder()
-                .name("Tatiane Correa")
-                .email("tatiane@corre.com")
-                .document("03238461060")
-                .typeDocument(TypeDocument.PF)
-                .build();
+        CustomerDto customerDto = criarCustomerDto();
 
         Customer customer = modelMapper.map(customerDto, Customer.class);
         when(customerService.save(customerDto))
@@ -59,13 +54,7 @@ class CustomerControllerTest {
     @DisplayName("Deve receber um id do customer e retornar um response")
     void findByIdTest() {
         Long id = 1L;
-        Customer customer = Customer.builder()
-                .idCustomer(id)
-                .name("Tatiane")
-                .document("03238461060")
-                .typeDocument(TypeDocument.PF)
-                .email("tatiane@corre.com")
-                .build();
+        Customer customer = criarCustomer();
         when(customerService.findById(id))
                 .thenReturn(customer);
         CustomerResponseDto customerResponseDto = customerController.findById(id);
@@ -112,13 +101,7 @@ class CustomerControllerTest {
     @DisplayName("Deve atualizar um cliente com sucesso")
     void updateTest() {
         Long id = 1L;
-
-        CustomerDto customerDto = CustomerDto.builder()
-                .name("Tati")
-                .document("15493143003")
-                .typeDocument(TypeDocument.PF)
-                .email("tatiane@teste.com")
-                .build();
+        CustomerDto customerDto = criarCustomerDto();
 
         Customer customer = modelMapper.map(customerDto, Customer.class);
         when(customerService.update(customerDto, id))
@@ -132,13 +115,7 @@ class CustomerControllerTest {
     @DisplayName("Deve receber um id do customer e retornar um response")
     void findByIdVersion2Test() {
         Long id = 1L;
-        Customer customer = Customer.builder()
-                .idCustomer(id)
-                .name("Tatiane")
-                .document("03238461060")
-                .typeDocument(TypeDocument.PF)
-                .email("tatiane@corre.com")
-                .build();
+        Customer customer = criarCustomer();
         when(customerService.findById(id))
                 .thenReturn(customer);
 
@@ -150,4 +127,28 @@ class CustomerControllerTest {
         assertEquals(customer.getEmail(), customerResponseContr2Dtro.getEmail());
         assertEquals(customer.getAddresses(), customerResponseContr2Dtro.getAddresses());
     }
+
+    public Customer criarCustomer(){
+        Long id = 1L;
+        Customer customer = Customer.builder()
+                .idCustomer(id)
+                .name("Tatiane")
+                .document("03238461060")
+                .typeDocument(TypeDocument.PF)
+                .email("tatiane@correa.com")
+                .build();
+        return customer;
+    }
+
+
+    public CustomerDto criarCustomerDto(){
+        CustomerDto customerDto = CustomerDto.builder()
+                .name("Tati")
+                .document("15493143003")
+                .typeDocument(TypeDocument.PF)
+                .email("tatiane@teste.com")
+                .build();
+        return customerDto;
+    }
+
 }

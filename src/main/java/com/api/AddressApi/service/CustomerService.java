@@ -40,5 +40,4 @@ public class CustomerService {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found!"));
     }
-
 }
